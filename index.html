@@ -39,6 +39,9 @@
       font-size: 16px;
       box-sizing: border-box;
     }
+    input::placeholder {
+      color: #555;
+    }
     .btn {
       background-color: #1a1a1a;
       color: #ffffff;
@@ -68,15 +71,15 @@
         <button type="button" class="btn" onclick="nextStep()">Liberar meu acesso</button>
       </div>
       <div id="step1" class="form-step">
-        <input type="text" id="nome" placeholder="Como podemos te chamar?" required>
+        <input type="text" id="nome" placeholder="Como podemos te chamar? (1/3)" required>
         <button type="button" class="btn" onclick="nextStep()">Avançar</button>
       </div>
       <div id="step2" class="form-step">
-        <input type="email" id="email" placeholder="Qual seu melhor e-mail?" required>
+        <input type="email" id="email" placeholder="Qual seu melhor e-mail? (2/3)" required>
         <button type="button" class="btn" onclick="nextStep()">Avançar</button>
       </div>
       <div id="step3" class="form-step">
-        <input type="tel" id="telefone" placeholder="Seu número de WhatsApp (com DDD)" required>
+        <input type="tel" id="telefone" placeholder="Seu número de WhatsApp (com DDD) (3/3)" required>
         <button type="submit" class="btn">Finalizar cadastro</button>
       </div>
     </form>

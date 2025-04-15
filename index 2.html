@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário Progressivo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .form-wrapper {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      max-width: 380px;
+      width: 100%;
+      transition: all 0.3s ease-in-out;
+    }
+    .form-step {
+      display: none;
+      flex-direction: column;
+    }
+    .form-step.active {
+      display: flex;
+      gap: 16px;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .btn {
+      background-color: #1a1a1a;
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s ease;
+    }
+    .btn:hover {
+      background-color: #333;
+    }
+    .helper-text {
+      font-size: 12px;
+      color: #777;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-wrapper">
+    <form id="smartForm">
+      <div id="step0" class="form-step active">
+        <button type="button" class="btn" onclick="nextStep()">Liberar meu acesso</button>
+      </div>
+      <div id="step1" class="form-step">
+        <input type="text" id="nome" placeholder="Como podemos te chamar?" required>
+        <button type="button" class="btn" onclick="nextStep()">Avançar</button>
+      </div>
+      <div id="step2" class="form-step">
+        <input type="email" id="email" placeholder="Qual seu melhor e-mail?" required>
+        <button type="button" class="btn" onclick="nextStep()">Avançar</button>
+      </div>
+      <div id="step3" class="form-step">
+        <input type="tel" id="telefone" placeholder="Seu número de WhatsApp (com DDD)" required>
+        <button type="submit" class="btn">Finalizar cadastro</button>
+      </div>
+    </form>
+    <p class="helper-text" id="final-msg" style="display: none;">Seus dados estão protegidos. Não enviamos spam.</p>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    const steps = document.querySelectorAll('.form-step');
+
+    function showStep(index) {
+      steps.forEach((step, i) => {
+        step.classList.toggle('active', i === index);
+      });
+    }
+
+    function nextStep() {
+      const currentInput = steps[currentStep].querySelector('input');
+      if (currentInput && !currentInput.checkValidity()) {
+        currentInput.reportValidity();
+        return;
+      }
+      currentStep++;
+      showStep(currentStep);
+    }
+
+    document.getElementById('smartForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const telefone = document.getElementById('telefone');
+      if (!telefone.checkValidity()) {
+        telefone.reportValidity();
+        return;
+      }
+      document.querySelector('.form-wrapper').innerHTML = '<h3>Cadastro realizado com sucesso!</h3><p class="helper-text">Em breve entraremos em contato com você.</p>';
+    });
+  </script>
+</body>
+</html>
